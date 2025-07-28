@@ -9,6 +9,6 @@ We welcome contributions from all pilots! If you spot missing information, uncle
 
 Your feedback and expertise help keep our docs accurate and useful for the whole gliding community.
 
-::: warning ⚠️ Documentation in progress
+## ⚠️ Documentation in progress
+
 Note that we are busy writing the documentation and will be completing this documentation over the coming weeks.
-:::
