@@ -1,0 +1,18 @@
+image: node:20-bullseye
+
+stages:
+  - deploy
+
+deploy_docs:
+  stage: deploy
+  script:
+    - apt-get update && apt-get install -y python3 python3-pip
+    - npm install
+    - pip install awscli
+    - bash ops/deploy.sh
+  cache:
+    paths:
+      - node_modules/
+  only:
+    - main
+    - master

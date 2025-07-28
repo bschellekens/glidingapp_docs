@@ -1,0 +1,150 @@
+:root {
+    --vp-nav-logo-height: 50px;
+    --docsearch-primary-color: #1890ff;
+    --vp-button-brand-bg: #1890ff;
+    --vp-home-hero-name-color: white;
+    /* --vp-layout-max-width: 1200px; */
+}
+
+/* a[rel='register'] {
+    background-color: #1890ff; 
+    color: white !important;  
+    margin:15px; 
+} */
+
+
+.VPDoc:not(.has-sidebar) .container {
+    max-width: 1200px !important;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+
+@media (max-width: 500px) {
+    .container {
+        padding: 12px !important;
+    }
+}
+
+.VPDoc:not(.has-sidebar) .content {
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+
+.VPDoc.has-aside .content-container {
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+
+.vp-doc h2 {
+    border-top: none;
+    color: #333;
+}
+
+.vp-doc p {
+    margin: 1rem 0;
+}
+
+/* Make fullwidth media display properly */
+.vp-doc img,
+.vp-doc video {
+    display: block;
+    margin: 1.5rem auto;
+    max-width: 100%;
+}
+
+.VPHero {
+    color: white;
+    background: url(/assets/background.png) no-repeat center center;
+    background-color: #188fff5d;
+    background-size: contain;
+}
+
+/* Hide empty aside elements */
+.aside:empty {
+    display: none;
+}
+
+.features-section {
+  padding: 1rem 2rem 0.5rem 2rem;
+  text-align: center;
+}
+
+
+.features-section p {
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .features-section {
+    padding: 0.1rem 0;
+  }
+  
+  .features-section h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Language flags styles */
+.lng-intro {
+    margin: 1rem auto;
+    color: #555;
+    max-width: 800px;
+    text-align: center;
+}
+
+.lng-flags {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin: 2rem auto !important;
+    max-width: 800px;
+}
+
+.lng-flag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flag {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.lng-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.lng-contact {
+    max-width: 800px;
+    margin: 0 auto !important;
+    padding: 1.5rem;
+    background-color: #f0f8ff;
+    border-left: 4px solid #1890ff;
+    border-right: 4px solid #1890ff;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.highlight {
+    font-weight: 700;
+}
+
+.lng-cta {
+    display: inline-block;
+    margin: 0.5rem auto !important;
+    padding: 0.5rem 1rem;
+    background-color: #1890ff;
+    color: white !important;
+    font-weight: 500;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .lng-flags {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

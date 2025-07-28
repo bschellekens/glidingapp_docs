@@ -1,0 +1,1 @@
+# Automatic Launch Registration

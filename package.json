@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "npx vitepress dev docs --host --port 2003",
+    "build": "npm run docs:build",
+    "docs:dev": "npx vitepress dev docs --host --port 2003",
+    "docs:build": "npx vitepress build docs",
+    "docs:preview": "npx vitepress preview docs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.5.0"
+  }
+}
