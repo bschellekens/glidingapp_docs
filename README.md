@@ -8,3 +8,7 @@ We welcome contributions from all pilots! If you spot missing information, uncle
 3. If you prefer, you can also email your suggestions to [contact@gliding.app](mailto:contact@gliding.app)
 
 Your feedback and expertise help keep our docs accurate and useful for the whole gliding community.
+
+::: warning ⚠️ Documentation in progress
+Note that we are busy writing the documentation and will be completing this documentation over the coming weeks.
+:::
