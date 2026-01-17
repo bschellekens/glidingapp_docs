@@ -37,11 +37,18 @@ Import your existing club data into GlidingApp using CSV templates. This step es
 
 **GlidingApp assistance:** We can help translate your existing data into the correct CSV format. If your data is in Excel spreadsheets, flight logs, or another database format, contact us and we'll provide guidance on data preparation. 
 
+:::info Historical Flight Data Completeness
+
+Your historical flight import provides a valuable start for pilot recency tracking and helps members see their flying history when they first log in. However, the imported data may be incomplete. External flights (ouside of your club) might not be included, and (depending on your source data) some flights might not be marked correctly as UK SFCL/EASA training flights. 
+
+As such, all imported flights are marked as "private" and **editable by the pilot**. Encourage members to review their flight history for accuracy, correct any training flights where needed, and add/import additional flights themselves. 
+
+By importing your club data makes it easier for pilots to start with a digital personal logbook, and the better the quality of the import the more it will encourage pilots to complete it.
+:::
+
 ### Step 2: Configure Your Club (3 evenings)
 
-Customize GlidingApp to match your club's operations, training programs, and administrative processes.
-
-**Core team needed:** Organize a small group (3-4 people) to make configuration decisions:
+Customize GlidingApp to match your club's operations, training programs, and administrative processes. The main configuration should be headed by one person, and supported by a small group (3-4 people) to make configuration decisions. The roles could include (depending on which modules you'd like to implement):
 - **(Chief) instructor** - Defines competency requirements and progression criteria
 - **Technical officer** - Configures aircraft, launch methods, and operational settings
 - **Roster coordinator** - Sets up day templates and roster patterns
