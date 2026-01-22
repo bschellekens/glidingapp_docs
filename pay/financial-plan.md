@@ -26,3 +26,95 @@ The GlidingApp **Financial plan** establishes member billing, payment collection
 
 **Balance reminders** notify members when their account requires payment attention. The system evaluates all member balances during nightly task execution (Monday mornings) and sends emails to members whose balance falls below the configured threshold (send_balance_min_amount). Reminder emails include current balance formatted in club currency, direct link to account page for payment, and customizable header message (send_balance_email_header) explaining payment instructions and club contact information. The reminder system respects test mode—emails do not send while payment_testmode = true, preventing confusion during financial system setup. Administrators enable automatic reminders in **Financial** → **Settings** → toggle **Send Balance Reminders** → set **Minimum Balance for Reminder** (e.g., -50 for members owing more than 50). Members receive at most one reminder per week regardless of balance changes.
 
+### 6. SEPA Direct Debit
+
+**SEPA direct debit** automates payment collection by charging member bank accounts directly when balances reach configured thresholds. The system processes direct debits through Mollie's SEPA mandate infrastructure, which handles European banking regulations (including United Kingdom), authorization workflows, and failure recovery. Direct debit integrates with the existing balance-based accounting system—successful charges create positive ledger entries identical to manual payments, maintaining unified financial records.
+
+The implementation requires Mollie profile configuration (SEPA direct debit must be enabled on your Mollie profile), member mandate activation (each member authorizes direct debit via one-time bank authentication), and settlement scheduling based on club preferences. The two-phase processing workflow creates pending charges with advance notification before submitting to Mollie, allowing administrative review and member preparation. Failed payments trigger automatic retry logic with status tracking and administrative alerts.
+
+#### Direct Debit Modes
+
+Configure settlement timing via **Financial** → **Settings** → **Direct Debit Mode**:
+
+| Mode | Description | Use Case |
+|------|-------------|----------|
+| **Monthly** | Processes all negative balances on the 1st of each month | Predictable monthly billing cycle, suitable for clubs with regular membership fees and consistent flying activity |
+| **Balance** | Processes daily when member balance drops below threshold (e.g., -100) | Cash flow optimization for clubs requiring frequent settlement, prevents large outstanding balances |
+| **Manual** | Administrator triggers direct debit per member via account page | Full control over timing, useful during initial implementation or for members with irregular activity |
+
+#### Processing Workflow
+
+Direct debit processing follows a four-step workflow with built-in safety delays:
+
+**Step 1: Mandate Activation**  
+Member navigates to **My Account** → **Activate Direct Debit** → completes one-time payment (minimum payment amount) via Mollie using iDeal, Bancontact, PayByBank (United Kingdom). This first payment establishes the SEPA mandate with their bank. The payment amount is credited to their account immediately. Bank details (last 3 digits of IBAN) are stored for member reference. Mandate status updates to "valid" upon successful authorization.
+
+**Step 2: Scheduled Creation**  
+Nightly task evaluates eligible members (valid mandate + balance meets threshold for configured mode). System creates scheduled ledger entries, that will be processed 1 day later. Members receive an advance notification email, with invoice PDF attachment detailing, that a direct debit is pending. Email uses future tense ("will be charged tomorrow") to set expectations. This delay allows administrative intervention—administrators to cancel scheduled direct debits if that is required.
+
+**Step 3: Mollie Processing**  
+Following night, system processes pending ledger entries created. Payment enters Mollie's SEPA processing queue, typically requiring 1-2 business days for bank settlement (SEPA standard allows up to 48 hours). During this period, payment status is "pending" in Mollie.
+
+#### Chargeback Monitoring
+
+Members retain right to dispute SEPA direct debits for 8 weeks after settlement (European banking regulation). The system monitors processed transactions via weekly chargeback detection task, which queries Mollie API for status changes on all direct debit payments from the previous 8 weeks. Detected chargebacks reverse the ledger entry, add descriptive remark, and immediately notify administrators via email. Administrators should contact affected members to resolve payment disputes and may suspend direct debit access for members with repeated chargebacks.
+
+## Admin Actions
+
+### Verify Mollie Direct Debit Configuration
+
+**What:** Confirm SEPA direct debit is enabled on Mollie profile  
+**When:** Required before enabling direct debit for members. Rerun if changing Mollie profiles or after initial setup.  
+**Permission:** "Edit financial"
+
+**How:**
+1. **Financial** → **Settings** → **Direct Debit** section
+2. Click **Verify Mollie Profile**
+3. Observe status tag: "Activated" (green) confirms ready, "Not Enabled" (orange) requires Mollie dashboard configuration, "Not Available" (red) indicates Mollie account limitations
+4. If not activated, visit Mollie dashboard → **Profiles** → **Payment Methods** → enable "SEPA Direct Debit"
+
+### Manually Trigger Direct Debit
+
+**What:** Create direct debit for specific member outside automatic schedule  
+**When:** Manual mode enabled, or to collect payment immediately for member with valid mandate regardless of mode  
+**Permission:** "Edit financial"
+
+**How:**
+1. **Financial** → **Account Holders** → search for member
+2. Click member name → view account detail page
+3. Verify mandate status shows "valid" and balance is negative
+4. Click **Create Direct Debit** button
+5. System creates pending ledger following standard two-phase workflow
+6. Direct debit processes following night's task execution
+
+**Bulk trigger:**
+1. **Financial** → **Account Holders** → use checkboxes to select multiple members
+2. Click **Trigger Direct Debit** for selected (button shows eligibility count)
+3. System creates pending ledgers for all eligible members (valid mandate + negative balance)
+
+### Handle Failed Payments
+
+**What:** Investigate and resolve direct debit failures  
+**When:** After receiving administrative alert email for failed payment  
+**Permission:** "Edit financial"
+
+**How:**
+1. Review failure notification email for member name, amount, and Mollie error message
+2. Navigate to member account page via email link
+3. Common resolutions:
+   - **Insufficient funds**: Contact member about balance and manually retry
+   - **Closed/invalid account**: Member must reactivate mandate with updated bank details
+   - **Revoked mandate**: Investigate member intent, may require reactivation or alternative payment arrangement
+
+### Respond to Chargebacks
+
+**What:** Process disputed direct debit transactions  
+**When:** After receiving chargeback detection notification (automatic weekly monitoring)  
+**Permission:** "Edit financial"
+
+**How:**
+1. Review chargeback notification email showing member name, amount, and dispute date
+2. Ledger entry automatically reversed (amount set to 0), member balance reflects chargeback
+3. Contact member to understand dispute reason and resolve underlying issue
+4. Options: request voluntary payment via alternative method, provide documentation to support original charge, or write off amount if dispute is justified
+5. Monitor member for repeated chargeback patterns (may indicate systemic billing disagreement requiring mandate suspension)
