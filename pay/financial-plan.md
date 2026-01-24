@@ -16,7 +16,11 @@ The GlidingApp **Financial plan** establishes member billing, payment collection
 
 ### 3. Payment Methods
 
-**Payment methods** determine how members fund their accounts. GlidingApp supports two collection approaches with different administrative overhead and member convenience trade-offs. **Bank transfers** require members to transfer funds directly to the club's bank account using reference numbers. Administrators import bank statements monthly or quarterly via **Ledgers** → **Import Bank Statement**, supporting MT940 (European standard), OFX (international standard), and CSV formats. The import allows administrators to reconcile transactions to member accounts using name matching suggestions. **Online payments** integrate with Mollie payment provider, enabling members to pay directly from their account page via credit card, iDeal, SEPA direct debit, or Pay by Bank. Online payment is more convenient for members (as it works in app) and is more convenient for administrators as it does not require reconciliation and works in real-time. However, Mollie does apply transaction costs. UK clubs benefit from Mollie's Pay by Bank option, which offers lower transaction fees than card payments.
+**Payment methods** determine how members fund their accounts. GlidingApp supports two collection approaches with different administrative overhead and member convenience trade-offs. **Bank transfers** require members to transfer funds directly to the club's bank account using reference numbers. Administrators import bank statements monthly or quarterly via **Ledgers** → **Import Bank Statement**, supporting MT940 (European standard), OFX (international standard), and CSV formats. The import allows administrators to reconcile transactions to member accounts using name matching suggestions. 
+
+**Online payments** integrate with Mollie payment provider, enabling members to pay directly from their account page via activated payment methods (e.g. Pay by Bank, PayPal, Ideal). Please note that transaction costs will apply, refer to [Mollie pricing](https://www.mollie.com/pricing) for current transaction fees. UK clubs benefit from Mollie's Pay by Bank option, which offers lower transaction fees than card payments.
+
+**Direct Debit** can be activated in the account. Either [SEPA]](https://docs.mollie.com/docs/sepa-direct-debit) for EURO based payments, or [BACS](https://docs.mollie.com/docs/bacs)CS for pound based payments. 
 
 ### 4. Financial Reports
 
