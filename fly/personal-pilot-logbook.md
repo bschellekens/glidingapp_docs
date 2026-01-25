@@ -46,6 +46,19 @@ Pilots flying at multiple clubs can link their home club (primary membership) wi
 
 **Sync behavior:** Runs nightly, copying flights created at guest clubs to the home club logbook. Pilot's recency is shared with guest clubs so instructors can verify pilot competency before authorizing flights. After deactivation, guest clubs retain pilot data for 3 years (EASA requirement).
 
+:::info **ℹ️ One-way sync: What you see at each club**
+
+Flight sync is **one-way only**: guest club → home club. This ensures a single source of truth, as each club maintains its own database.
+
+**At your home club:** You see ALL flights: those made at your home club + synced flights from guest clubs. This is your complete logbook.
+
+**At your guest club:** You see ONLY flights made at that specific guest club. Individual flights from your home club are NOT imported to the guest club database.
+
+**Total starts and currency:** Your total starts and recency displayed at the guest club ARE correct because they are directly retrieved from your home club data. The home club pushes summary statistics (total starts, hours, recency) to the guest club, so instructors see accurate currency.
+
+**To view your complete flight history:** Always check your home club logbook, where all flights from all clubs are synced together.
+:::
+
 ### 4. Private Flights
 
 Flights marked as **private** count toward personal currency but aren't visible in club-wide statistics or admin reports. Use private flights for activity in personally owned aircraft or at other clubs before guest club linking is established.
